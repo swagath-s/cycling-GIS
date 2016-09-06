@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Name": "Sagar cycle shop", "descriptio": null, "visibility": -1, "drawOrder": null, "icon": null, "Repairs": 1, "parts": 1, "retail": 1, "value": 9, "from": "low", "testRide": "0" }, "geometry": { "type": "Point", "coordinates": [ 77.580288, 13.10969, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Sri Vinayaka Cycle Stores\n", "descriptio": null, "visibility": -1, "drawOrder": null, "icon": null, "Repairs": 1, "parts": 1, "retail": 1, "value": 7, "from": "low", "testRide": "1" }, "geometry": { "type": "Point", "coordinates": [ 77.5770432, 13.103529, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Venkatadri Cycles\n", "descriptio": null, "visibility": -1, "drawOrder": null, "icon": null, "Repairs": 0, "parts": 1, "retail": 1, "value": 6, "from": "low", "testRide": "0" }, "geometry": { "type": "Point", "coordinates": [ 77.5768125, 13.1036491, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Old Man\n", "descriptio": null, "visibility": -1, "drawOrder": null, "icon": null, "Repairs": 1, "parts": 1, "retail": 0, "value": 7, "from": null, "testRide": null }, "geometry": { "type": "Point", "coordinates": [ 77.5742376, 13.1054725, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Sangam The Two Wheeler Men", "descriptio": null, "visibility": -1, "drawOrder": null, "icon": null, "Repairs": 1, "parts": 1, "retail": 1, "value": 5, "from": "med", "testRide": "1" }, "geometry": { "type": "Point", "coordinates": [ 77.583851500000037, 13.0929284, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Balarama Cycle Shop", "descriptio": null, "visibility": -1, "drawOrder": null, "icon": null, "Repairs": 1, "parts": 1, "retail": 1, "value": 6, "from": "low", "testRide": "0" }, "geometry": { "type": "Point", "coordinates": [ 77.578045299999985, 13.0970252, 0.0 ] } }
+]
+}

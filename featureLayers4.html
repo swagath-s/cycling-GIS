@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>filtering geojson</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+<script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+
+.menu-ui {
+  background:#fff;
+  position:absolute;
+  top:10px;left:10px;
+  z-index:1;
+  border-radius:3px;
+  width:120px;
+  border:1px solid rgba(0,0,0,0.4);
+  }
+  .menu-ui a {
+    font-size:13px;
+    color:#404040;
+    display:block;
+    margin:0;padding:0;
+    padding:10px;
+    text-decoration:none;
+    border-bottom:1px solid rgba(0,0,0,0.25);
+    text-align:center;
+    }
+    .menu-ui a:first-child {
+      border-radius:3px 3px 0 0;
+      }
+    .menu-ui a:last-child {
+      border:none;
+      border-radius:0 0 3px 3px;
+      }
+    .menu-ui a:hover {
+      background:#f8f8f8;
+      color:#404040;
+      }
+    .menu-ui a.active,
+    .menu-ui a.active:hover {
+      background:#3887BE;
+      color:#FFF;
+      }
+
+
+#errors,
+#directions {
+    position: absolute;
+    width: 33.3333%;
+    max-width: 300px;
+    min-width: 200px;
+}
+
+#inputs {
+    z-index: 10;
+    top: 10px;
+    left: 10px;
+}
+
+#directions {
+    z-index: 99;
+    background: rgba(0,0,0,.8);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+#errors {
+    z-index: 8;
+    opacity: 0;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    background: rgba(0,0,0,.25);
+    top: 90px;
+    left: 10px;
+}
+
+.leaflet-top, .leaflet-control-zoom {
+  position:fixed;
+  bottom:10px;
+  left:0px;
+}
+.mapbox-logo {
+  visibility:hidden;
+}
+</style>
+
+
+<script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' type='text/css' />
+
+</head>
+<body>
+
+
+<nav class='menu-ui'>
+  <a href='#' class='active' data-filter='all'>Show all</a>
+  <a href='#' data-filter='retail'>Retail</a>
+  <a href='#' data-filter='parts'>Parts</a>
+  <a href='#' data-filter='Repairs'>Repairs</a>
+</nav>
+<div id='map'></div>
+<div id='errors'></div>
+<div id='directions'>
+
+  <div id='inputs'></div>
+
+  <div id='routes'></div>
+  <div id='instructions'></div>
+</div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1Ijoic3dhZ2F0aCIsImEiOiJjaXJ4MWV6cGkwMDU0MnRud2pyNGR5dHdkIn0.hK1kSoYZKbMFsyyllaMrjw';
+
+
+var map = L.mapbox.map('map', 'mapbox.streets')
+  .setView([13.1, 77.58], 16)
+
+//L.mapbox.tileLayer('mapbox.streets').addTo(map);
+
+//var markers = L.mapbox.featureLayer()
+//  .setGeoJSON(geojson)
+//  .addTo(map);
+
+var markers = L.mapbox.featureLayer()
+    .loadURL('/docs/Sudhira/POI-attributicious.geojson')
+    .addTo(map);
+
+
+
+$('.menu-ui a').on('click', function() {     //executes on click of any button
+    var filter = $(this).data('filter'); //stores data from that attribute in filter
+    $(this).addClass('active').siblings().removeClass('active'); //makes the clicked class the active class
+    markers.setFilter(function(f) {
+      
+        return (filter === 'all') ? true : (f.properties[filter] === 1);
+        //return true if filter is all or if the buttonName property has value 1 in the geoJSON file.
+    });
+    return false;
+});
+
+
+
+// create the initial directions object, from which the layer
+// and inputs will pull data.
+var directions = L.mapbox.directions();
+
+var directionsLayer = L.mapbox.directions.layer(directions)
+    .addTo(map);
+
+var directionsInputControl = L.mapbox.directions.inputControl('inputs', directions)
+    .addTo(map);
+
+var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', directions)
+    .addTo(map);
+
+var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+    .addTo(map);
+
+var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
+    .addTo(map);
+
+</script>
+
+
+</body>
+</html>
